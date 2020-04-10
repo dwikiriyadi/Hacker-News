@@ -2,17 +2,21 @@ package io.gitlab.dwikiriyadi.hackernews
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import io.gitlab.dwikiriyadi.hackernews.ui.main.MainFragment
+import androidx.navigation.Navigation
+import io.gitlab.dwikiriyadi.hackernews.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private val binding by lazy { MainActivityBinding.inflate(layoutInflater) }
+    private val navController by lazy { Navigation.findNavController(this, R.id.nav_host_fragment_container)}
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
-                    .commitNow()
-        }
+        setContentView(binding.root)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        navController.navigateUp()
+        return true
     }
 }
